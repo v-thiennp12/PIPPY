@@ -182,7 +182,7 @@ if __name__ == '__main__':
 	bs_threading=threading.Thread(target=batteryStatus)   
 	bs_threading.setDaemon(True)                     
 	bs_threading.start()
-	while  1:
+	while  False:
 		try:				  #Start server,waiting for client
 			start_server = websockets.serve(main_logic, '0.0.0.0', 8888)
 			asyncio.get_event_loop().run_until_complete(start_server)
@@ -193,6 +193,6 @@ if __name__ == '__main__':
 			print(e)
 
 	try:
-		asyncio.get_event_loop().run_forever()
+		#asyncio.get_event_loop().run_forever()
 	except Exception as e:
 		print(e)

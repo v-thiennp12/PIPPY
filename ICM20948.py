@@ -412,8 +412,6 @@ if __name__ == '__main__':
     xDebug = xGet - xMiddle
     yDebug = yGet - yMiddle
 
-
-
     pitchValue = rangeCtrl((minHeight - middleHeight), (maxHeight - middleHeight), pitchValue + xDebug*valueP)
     rollValue  = rangeCtrl((minHeight - middleHeight), (maxHeight - middleHeight), rollValue - yDebug*valueP)
     print('debug:', xDebug)
@@ -422,17 +420,4 @@ if __name__ == '__main__':
       alterMove.pitchRoll(pitchValue, rollValue)
       # alterMove.pitchRoll(0, 10)
     except:
-      pass  
-
-
-
-       
-      
-         
-      
-
-
-
-
-
-      
+      pass

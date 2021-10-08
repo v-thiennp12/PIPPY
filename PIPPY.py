@@ -34,13 +34,13 @@ speedApart = 50
 7---2
 '''
 
-init_pwm0 = 300
-init_pwm1 = 300
+init_pwm0 = 355
+init_pwm1 = 512
 init_pwm2 = 300
 init_pwm3 = 300
 
 init_pwm4 = 300
-init_pwm5 = 300
+init_pwm5 = 230
 init_pwm6 = 300
 init_pwm7 = 300
 
