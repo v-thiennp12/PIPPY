@@ -77,12 +77,14 @@ class PCA9685:
     if (self.debug):
       print("channel: %d  LED_ON: %d LED_OFF: %d" % (channel,on,off))
 	  
-  def setServoPulse(self, channel, pulse):
+  def setServoPulse(self, channel, duty_cycle):
     "Sets the Servo Pulse,The PWM frequency must be 50HZ"
-    pulse = pulse*4096/20000        #PWM frequency is 50HZ,the period is 20000us
+    #pulse = pulse*4096/20000         #PWM frequency is 50HZ,the period is 
+    pulse = duty_cycle*4096/20000         #PWM frequency is 50HZ,the period is 20000us
+    #pulse = duty_cycle/100*20000/4096 # duty cycle from 0 to 100%
     self.setPWM(channel, 0, int(pulse))
   
-  def exit_PCA9685(self):
+  def exit(self):
     self.write(self.__MODE1, 0x00) #Please use initialization or __MODE2 =0x04
 
 if __name__=='__main__':
@@ -101,4 +103,4 @@ if __name__=='__main__':
               pwm.setServoPulse(channel,i)
       time.sleep(0.02)
       count += 1
-  #pwm.exit_PCA9685()
+  #pwm.exit()
