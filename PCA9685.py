@@ -65,7 +65,7 @@ class PCA9685:
     self.write(self.__MODE1, newmode)        # go to sleep
     self.write(self.__PRESCALE, int(math.floor(prescale)))
     self.write(self.__MODE1, oldmode)
-    time.sleep(0.005)
+    time.sleep(0.05)
     self.write(self.__MODE1, oldmode | 0x80)
 
   def setPWM(self, channel, on, off):
@@ -77,11 +77,12 @@ class PCA9685:
     if (self.debug):
       print("channel: %d  LED_ON: %d LED_OFF: %d" % (channel,on,off))
 	  
-  def setServoPulse(self, channel, duty_cycle):
+  def setServoPulse(self, channel, pulse):
     "Sets the Servo Pulse,The PWM frequency must be 50HZ"
     #pulse = pulse*4096/20000         #PWM frequency is 50HZ,the period is 
-    pulse = duty_cycle*4096/20000         #PWM frequency is 50HZ,the period is 20000us
+    #pulse = duty_cycle*4096/20000         #PWM frequency is 50HZ,the period is 20000us
     #pulse = duty_cycle/100*20000/4096 # duty cycle from 0 to 100%
+    print('pulse off ', int(pulse))
     self.setPWM(channel, 0, int(pulse))
   
   def exit(self):
@@ -93,14 +94,14 @@ if __name__=='__main__':
   count = 0
   #while True:
   while count < 1:
-      for i in range(500,2000,10):
-          for channel in range(0,16):
+      for i in range(150,450,1):
+          for channel in range(0,8):
               pwm.setServoPulse(channel,i)
       time.sleep(0.02)
 
-      for i in range(2000,500,-10):
-          for channel in range(0,16):
+      for i in range(450,150,-1):
+          for channel in range(0,8):
               pwm.setServoPulse(channel,i)
-      time.sleep(0.02)
+      # time.sleep(0.02)
       count += 1
   #pwm.exit()
