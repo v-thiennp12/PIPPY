@@ -7,6 +7,7 @@ import time
 from waveshare_OLED import OLED_0in91
 from PIL import Image,ImageDraw,ImageFont
 
+import logging
 from ina219 import INA219
 
 import threading
@@ -102,12 +103,13 @@ if __name__ == '__main__':
 	ina 				= INA219(SHUNT_OHMS, MAX_EXPECTED_AMPS, log_level=logging.INFO, address=0x42)
 	ina.configure(ina.RANGE_16V, ina.GAIN_AUTO)
 	#ina 219
-
     
 
 	while 1:
-		time.sleep(3)
+		time.sleep(10)
 		screen.screen_show(1, 'IP:192.168.4.1')
-		screen.screen_show(2, str(ina.voltage()))
+		volina = 'ina219 _ ' + str(round(ina.voltage(),1)) + ' V'
+		#print(volina)
+		screen.screen_show(2, volina)
 		#screen.screen_show(2, 'VOLTAGE:8.4v')
 		pass

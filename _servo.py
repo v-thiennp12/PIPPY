@@ -6,9 +6,6 @@ import sys
 import curses
 
 def keycontrol(argv):
-    
-
-
     channel     = int(sys.argv[1])
     round       = int(sys.argv[2])
     #pulse       = int(sys.argv[2])
@@ -17,9 +14,29 @@ def keycontrol(argv):
         
         pwm   = PCA9685.PCA9685(0x60, debug=False)
         pwm.setPWMFreq(50)
-        pulse = 110
-        pwm.setServoPulse(channel, pulse)
+
+        #init pulse
+        #in anti-clockwise order
+        #pulse = 110   #minimum
+        pulse  = 195   #vertical
+        #pulse  = 280   #mid
+        #pulse  = 450   #maximum
+        
+        # pwm.setServoPulse(channel, pulse)
+
+
+        pwm.setServoPulse(0, pulse)
+        pwm.setServoPulse(1, pulse) #*
+        pwm.setServoPulse(2, pulse)
+        pwm.setServoPulse(3, pulse) #*
+        pwm.setServoPulse(4, pulse)
+        pwm.setServoPulse(5, pulse)
+        pwm.setServoPulse(6, pulse)
+        pwm.setServoPulse(7, pulse)
+
         time.sleep(0.5)
+        #init pulse
+
         screen    = curses.initscr()
         curses.noecho()
         curses.cbreak()
@@ -73,6 +90,7 @@ def keycontrol(argv):
 
             print('maximum playing reached : %d  ' %(count))
             # time.sleep(2)
+            pwm.exit()
 
         finally:
             # print('maximum playing reached : %d  ' %(count))
@@ -85,6 +103,7 @@ def keycontrol(argv):
 
 if __name__ == '__main__':
     keycontrol(sys.argv)
+
 
 #value = input("Please enter an integer:\n")
 #print(f'You entered {value}')

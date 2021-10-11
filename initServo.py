@@ -7,15 +7,26 @@ pwm     = PCA9685.PCA9685(address=0x60)
 pwm.setPWMFreq(50)
 count   = 0
 
-def angle2pulse(angle):
-    min_pul = 500
-    max_pul = 2500
+min_pul = 110
+max_pul = 450
 
-    return int(angle/180*(max_pul-min_pul) + min_pul)
+mid_pulse       = int((min_pul + max_pul)/2)
+vertical_pulse  = int(195.0)
 
-while count < 2 :
-    for channel in range(0,16):
-        pwm.setServoPulse(channel, angle2pulse(50))
-    time.sleep(0.02)
-    count += 1
-#pwm.exit_PCA9685()
+# pwm.setServoPulse(0, mid_pulse)
+# pwm.setServoPulse(1, mid_pulse) #*
+# pwm.setServoPulse(2, mid_pulse)
+# pwm.setServoPulse(3, mid_pulse) #*
+# pwm.setServoPulse(4, mid_pulse)
+# pwm.setServoPulse(5, mid_pulse)
+# pwm.setServoPulse(6, mid_pulse)
+# pwm.setServoPulse(7, mid_pulse)
+
+pwm.setServoPulse(0, vertical_pulse)
+pwm.setServoPulse(1, vertical_pulse) #*
+pwm.setServoPulse(2, vertical_pulse)
+pwm.setServoPulse(3, vertical_pulse) #*
+pwm.setServoPulse(4, vertical_pulse)
+pwm.setServoPulse(5, vertical_pulse)
+pwm.setServoPulse(6, vertical_pulse)
+pwm.setServoPulse(7, vertical_pulse)
