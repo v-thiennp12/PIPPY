@@ -1,0 +1,30 @@
+#vertical calibration 
+#servo/channel
+
+
+
+top-view
+
+______head________
+
+4                1
+ >______________<
+5                0
+        |
+        |
+6                3
+ >______________<
+7                2
+
+#servo/channel | mid pulse [vertical position of each rod]
+#init position pwm [vertical position of each rod]
+
+0 |init_pwm0 = 190
+1 |init_pwm1 = 173
+2 |init_pwm2 = 205
+3 |init_pwm3 = 200
+
+4 |init_pwm4 = 187
+5 |init_pwm5 = 173
+6 |init_pwm6 = 175
+7 |init_pwm7 = 187

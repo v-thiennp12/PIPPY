@@ -11,7 +11,7 @@ min_pul = 110
 max_pul = 450
 
 mid_pulse       = int((min_pul + max_pul)/2)
-vertical_pulse  = int(195.0)
+vertical_pulse  = int(195.0) #average for all servo, before fine-tune
 
 # pwm.setServoPulse(0, mid_pulse)
 # pwm.setServoPulse(1, mid_pulse) #*

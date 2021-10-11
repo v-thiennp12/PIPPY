@@ -15,8 +15,13 @@ def keycontrol(argv):
         pwm   = PCA9685.PCA9685(0x60, debug=False)
         pwm.setPWMFreq(50)
 
-        #init pulse
+        #init pulse PWM
         #in anti-clockwise order
+        # min_pul = 110
+        # max_pul = 450
+        #mid_pulse       = int((min_pul + max_pul)/2)
+        #mid pulse average : 195
+
         #pulse = 110   #minimum
         pulse  = 195   #vertical
         #pulse  = 280   #mid
@@ -47,7 +52,7 @@ def keycontrol(argv):
             while count < round:
                 char = screen.getch()
                 if char == curses.KEY_LEFT:
-                    pulse -= 5
+                    pulse -= 1
                     if pulse < 110:
                         pulse = 110                
                     # pwm.setServoPulse(channel, pulse)
@@ -65,7 +70,7 @@ def keycontrol(argv):
                     count += 1
 
                 elif char == curses.KEY_RIGHT:
-                    pulse += 5
+                    pulse += 1
                     if pulse > 450:
                         pulse = 450                
                     # pwm.setServoPulse(channel, pulse)
