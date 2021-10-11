@@ -15,22 +15,22 @@ def keycontrol(argv):
     if (channel >= 0) & (channel < 16):
         
         
-        pwm   = PCA9685.PCA9685(0x60, debug=False)
+        pwm   = PCA9685.PCA9685(address=0x60, debug=False)
         pwm.setPWMFreq(50)
 
         # pwm.setServoPulse(0, pulse)
-        # pwm.setServoPulse(1, pulse)
+        # pwm.setServoPulse(1, pulse) #*
         # pwm.setServoPulse(2, pulse)
-        # pwm.setServoPulse(3, pulse)
-        # pwm.setServoPulse(4, pulse)
-        # pwm.setServoPulse(5, pulse)
-        # pwm.setServoPulse(6, pulse)
-        # pwm.setServoPulse(7, pulse)
+        # pwm.setServoPulse(3, pulse) #*
+        pwm.setServoPulse(4, pulse)
+        pwm.setServoPulse(5, pulse)
+        pwm.setServoPulse(6, pulse)
+        pwm.setServoPulse(7, pulse)
 
-        # time.sleep(0.5)
+        time.sleep(0.5)
 
-        pwm.setServoPulse(channel, pulse)
-        time.sleep(0.5)        
+        # pwm.setServoPulse(channel, pulse)
+        time.sleep(0.02)
 
         # count = 0
         # while count < round:
