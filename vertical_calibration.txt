@@ -18,6 +18,13 @@ ______head________
 
 #servo/channel | mid pulse [vertical position of each rod]
 #init position pwm [vertical position of each rod]
+# after fine-tune (calibration for each rod)
+min 50
+mid 250
+max 450
+
+vertical 350 or 150
+
 
 0 |init_pwm0 = 190
 1 |init_pwm1 = 173

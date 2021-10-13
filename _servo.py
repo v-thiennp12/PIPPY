@@ -17,18 +17,18 @@ def keycontrol(argv):
 
         #init pulse PWM
         #in anti-clockwise order
-        # min_pul = 110
-        # max_pul = 450
+        min_pul = 120
+        max_pul = 450
         #mid_pulse       = int((min_pul + max_pul)/2)
         #mid pulse average : 195
 
-        #pulse = 110   #minimum
-        pulse  = 195   #vertical
-        #pulse  = 280   #mid
+        #*** first calibration acros all servo/rod
+        # pulse = 110   #minimum
+        #pulse  = 195 or 365  #vertical
+        pulse  = 200   #mid
         #pulse  = 450   #maximum
-        
-        # pwm.setServoPulse(channel, pulse)
 
+        # pwm.setServoPulse(channel, pulse)
 
         pwm.setServoPulse(0, pulse)
         pwm.setServoPulse(1, pulse) #*
@@ -46,15 +46,16 @@ def keycontrol(argv):
         curses.noecho()
         curses.cbreak()
         screen.keypad(True)
+        pwm_step = 5
 
         count = 0
         try:
             while count < round:
                 char = screen.getch()
                 if char == curses.KEY_LEFT:
-                    pulse -= 1
-                    if pulse < 110:
-                        pulse = 110                
+                    pulse -= pwm_step
+                    if pulse < min_pul:
+                        pulse = min_pul                
                     # pwm.setServoPulse(channel, pulse)
 
                     pwm.setServoPulse(0, pulse)
@@ -70,9 +71,9 @@ def keycontrol(argv):
                     count += 1
 
                 elif char == curses.KEY_RIGHT:
-                    pulse += 1
-                    if pulse > 450:
-                        pulse = 450                
+                    pulse += pwm_step
+                    if pulse > max_pul:
+                        pulse = max_pul                
                     # pwm.setServoPulse(channel, pulse)
 
                     pwm.setServoPulse(0, pulse)
@@ -95,7 +96,8 @@ def keycontrol(argv):
 
             print('maximum playing reached : %d  ' %(count))
             # time.sleep(2)
-            pwm.exit()
+            #save last values to PCA9685 register
+            # pwm.exit()
 
         finally:
             # print('maximum playing reached : %d  ' %(count))

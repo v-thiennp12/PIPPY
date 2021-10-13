@@ -25,24 +25,24 @@ selectGait = 0
 speedApart = 50
 
 
-'''
+''' #head
 4---1 
 5---0
 
 
 6---3
 7---2
-'''
+''' #tail
 
-init_pwm0 = 355
-init_pwm1 = 512
-init_pwm2 = 300
-init_pwm3 = 300
+init_pwm0 = 250
+init_pwm1 = 250
+init_pwm2 = 250
+init_pwm3 = 250
 
-init_pwm4 = 300
-init_pwm5 = 230
-init_pwm6 = 300
-init_pwm7 = 300
+init_pwm4 = 250
+init_pwm5 = 250
+init_pwm6 = 250
+init_pwm7 = 250
 
 init_pwm8 = 300
 init_pwm9 = 300
@@ -571,15 +571,19 @@ def configPWM(command_input):
 
 
     elif 'PWMD' == command_input:
-        init_pwm0 = 300
-        init_pwm1 = 300
-        init_pwm2 = 300
-        init_pwm3 = 300
+        #MANUAL calibration for each servo/rod
+        #servo/channel | mid pulse [vertical position of each rod]
+        #init position pwm [vertical position of each rod]
+        # after fine-tune (calibration for each rod)
+        init_pwm0 = 190
+        init_pwm1 = 173
+        init_pwm2 = 205
+        init_pwm3 = 200
 
-        init_pwm4 = 300
-        init_pwm5 = 300
-        init_pwm6 = 300
-        init_pwm7 = 300
+        init_pwm4 = 187
+        init_pwm5 = 173
+        init_pwm6 = 175
+        init_pwm7 = 187
 
         init_pwm8 = 320
         init_pwm9 = 320
