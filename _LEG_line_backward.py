@@ -4,6 +4,7 @@ import time
 import PCA9685
 import sys
 import curses
+import numpy
 
 def keycontrol(argv):       
         pwm             = PCA9685.PCA9685(0x60, debug=False)
@@ -11,8 +12,8 @@ def keycontrol(argv):
 
         #init pulse PWM
         #in anti-clockwise order
-        min_pulse           = 190 #200 #50
-        max_pulse           = 310 #300 #450
+        min_pulse           = 100 #good 190 #200 #50
+        max_pulse           = 450 #good 310 #300 #450
         mid_pulse           = 250 # (max + min)/2
 
         #front-left LEG
@@ -63,8 +64,21 @@ def keycontrol(argv):
                         count_updown += 1
 
                 #front-left LEG
-                pwm.setServoPulse(4, int(mid_pulse + count_updown*pwm_step))
-                pwm.setServoPulse(5, int(mid_pulse + count_updown*pwm_step + 0))
+                # pwm.setServoPulse(4, int(mid_pulse + count_updown*pwm_step)) 
+                # pwm.setServoPulse(5, int(mid_pulse + count_updown*(pwm_step +20))
+                # print('count_updown ', count_updown)
+
+                # pwm.setServoPulse(4, int(mid_pulse + count_updown*pwm_step))                
+                # pwm.setServoPulse(5, int(mid_pulse + count_updown*pwm_step - numpy.sign(count_updown)*10))
+                # print('count_updown ', count_updown)
+
+                pwm.setServoPulse(4, int(mid_pulse + count_updown*pwm_step))                
+                # pwm.setServoPulse(5, int(mid_pulse + count_updown*pwm_step + numpy.sign(count_updown)*(abs(count_updown)*2 + 10)))
+                pwm.setServoPulse(5, int(mid_pulse + count_updown*pwm_step - (abs(count_updown)*5 + 30)))
+                print('count_updown ', count_updown)
+
+                # pwm.setServoPulse(4, int(mid_pulse - count_updown*pwm_step))
+                # pwm.setServoPulse(5, int(mid_pulse + count_updown*pwm_step))
                 
                 # #front-right LEG
                 # pwm.setServoPulse(0, mid_pulse - count_updown*pwm_step)

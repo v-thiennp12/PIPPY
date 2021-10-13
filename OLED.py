@@ -11,6 +11,8 @@ import logging
 from ina219 import INA219
 
 import threading
+import subprocess
+import os
 
 # Raspberry Pi pin configuration:
 disp = OLED_0in91.OLED_0in91()
@@ -103,13 +105,20 @@ if __name__ == '__main__':
 	ina 				= INA219(SHUNT_OHMS, MAX_EXPECTED_AMPS, log_level=logging.INFO, address=0x42)
 	ina.configure(ina.RANGE_16V, ina.GAIN_AUTO)
 	#ina 219
-    
+	  
 
 	while 1:
-		time.sleep(10)
+		time.sleep(1)
 		screen.screen_show(1, 'IP:192.168.4.1')
 		volina = 'ina219 _ ' + str(round(ina.voltage(),1)) + ' V'
 		#print(volina)
 		screen.screen_show(2, volina)
 		#screen.screen_show(2, 'VOLTAGE:8.4v')
+
+		#temperature = str(int(subprocess.check_output("echo $(</sys/class/thermal/thermal_zone0/temp)", stdout=subprocess.PIPE, shell=True))/1000) + ' C'
+		# temperature = str(subprocess.check_output("cpu=$(</sys/class/thermal/thermal_zone0/temp) && echo $((cpu/1000))")) + ' C'
+		# temperature = str(os.system("cpu=$(</sys/class/thermal/thermal_zone0/temp) && echo $((cpu/1000))")) + ' C'
+
+		# temperature = str(subprocess.run("echo $(</sys/class/thermal/thermal_zone0/temp)", capture_output=True).stdout) + ' c'
+		# screen.screen_show(4, temperature)
 		pass
