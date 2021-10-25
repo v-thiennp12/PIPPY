@@ -83,7 +83,12 @@ class PCA9685:
     #pulse = duty_cycle*4096/20000         #PWM frequency is 50HZ,the period is 20000us
     #pulse = duty_cycle/100*20000/4096 # duty cycle from 0 to 100%
     print('pulse off ', int(pulse))
-    self.setPWM(channel, 0, int(pulse))
+
+    min_pulse           = 100 #good 190 #200 #50
+    max_pulse           = 450 #good 310 #300 #450
+
+    if (min_pulse <= pulse <= max_pulse):
+      self.setPWM(channel, 0, int(pulse))
   
   def exit(self):
     self.write(self.__MODE1, 0x00) #Please use initialization or __MODE2 =0x04

@@ -34,15 +34,15 @@ speedApart = 50
 7---2
 ''' #tail
 
-init_pwm0 = 250
-init_pwm1 = 250
-init_pwm2 = 250
-init_pwm3 = 250
+init_pwm0 = 250 - 150
+init_pwm1 = 250 - 150
+init_pwm2 = 250 - 150
+init_pwm3 = 250 - 150
 
-init_pwm4 = 250
-init_pwm5 = 250
-init_pwm6 = 250
-init_pwm7 = 250
+init_pwm4 = 250 + 150
+init_pwm5 = 250 + 150
+init_pwm6 = 250 + 150
+init_pwm7 = 250 + 150
 
 init_pwm8 = 300
 init_pwm9 = 300
@@ -1083,7 +1083,7 @@ if __name__ == '__main__':
 
         # linkageV(0, 1, 15, 80)
         
-        moveD('forward')
+        moveD('backward')
         print('1')
         smove()
 

@@ -11,9 +11,9 @@ def keycontrol(argv):
 
         #init pulse PWM
         #in anti-clockwise order
-        min_pulse           = 190 #200 #50
-        max_pulse           = 310 #300 #450
-        mid_pulse           = 250 # (max + min)/2
+        min_pulse           = 100 #190 #200 #50
+        max_pulse           = 450 #310 #300 #450
+        mid_pulse           = 275 #250 # (max + min)/2
 
         #front-left LEG
         pwm.setServoPulse(4, mid_pulse)
@@ -39,7 +39,7 @@ def keycontrol(argv):
         curses.cbreak()
         key_get.keypad(True)
         
-        pwm_step        = 10
+        pwm_step        = 20
         count_updown    = 0
 
         try:
@@ -87,7 +87,7 @@ def keycontrol(argv):
             curses.endwin()
 
             #save last values to PCA9685 register
-            # pwm.exit()
+            pwm.exit()
 
         finally:
         # print('maximum playing reached : %d  ' %(count))

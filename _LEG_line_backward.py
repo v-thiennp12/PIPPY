@@ -14,23 +14,23 @@ def keycontrol(argv):
         #in anti-clockwise order
         min_pulse           = 100 #good 190 #200 #50
         max_pulse           = 450 #good 310 #300 #450
-        mid_pulse           = 250 # (max + min)/2
+        mid_pulse           = 275 # (max + min)/2
 
         #front-left LEG
         pwm.setServoPulse(4, mid_pulse)
         pwm.setServoPulse(5, mid_pulse)
         
-        # #front-right LEG
-        # pwm.setServoPulse(0, mid_pulse)
-        # pwm.setServoPulse(1, mid_pulse)
+        #front-right LEG
+        pwm.setServoPulse(0, mid_pulse)
+        pwm.setServoPulse(1, mid_pulse)
 
-        # # rear-left LEG
-        # pwm.setServoPulse(6, mid_pulse)
-        # pwm.setServoPulse(7, mid_pulse)
+        # rear-left LEG
+        pwm.setServoPulse(6, mid_pulse)
+        pwm.setServoPulse(7, mid_pulse)
 
         # #rear-right LEG
-        # pwm.setServoPulse(2, mid_pulse)
-        # pwm.setServoPulse(3, mid_pulse)        
+        pwm.setServoPulse(2, mid_pulse)
+        pwm.setServoPulse(3, mid_pulse)        
 
         time.sleep(0.02)
         #init pulse
@@ -40,7 +40,7 @@ def keycontrol(argv):
         curses.cbreak()
         key_get.keypad(True)
         
-        pwm_step        = 10
+        pwm_step        = 30
         count_updown    = 0
 
         try:
@@ -72,23 +72,30 @@ def keycontrol(argv):
                 # pwm.setServoPulse(5, int(mid_pulse + count_updown*pwm_step - numpy.sign(count_updown)*10))
                 # print('count_updown ', count_updown)
 
-                pwm.setServoPulse(4, int(mid_pulse + count_updown*pwm_step))                
+                #****
+                # pwm.setServoPulse(4, int(mid_pulse + count_updown*pwm_step))                
+                # pwm.setServoPulse(5, int(mid_pulse + count_updown*pwm_step - (abs(count_updown)*5 + 30)))
                 # pwm.setServoPulse(5, int(mid_pulse + count_updown*pwm_step + numpy.sign(count_updown)*(abs(count_updown)*2 + 10)))
-                pwm.setServoPulse(5, int(mid_pulse + count_updown*pwm_step - (abs(count_updown)*5 + 30)))
                 print('count_updown ', count_updown)
 
                 # pwm.setServoPulse(4, int(mid_pulse - count_updown*pwm_step))
                 # pwm.setServoPulse(5, int(mid_pulse + count_updown*pwm_step))
                 
-                # #front-right LEG
+                #front-right LEG
                 # pwm.setServoPulse(0, mid_pulse - count_updown*pwm_step)
                 # pwm.setServoPulse(1, mid_pulse + count_updown*pwm_step)
 
-                # #rear-left LEG
+                #rear-left LEG
                 # pwm.setServoPulse(6, mid_pulse - count_updown*pwm_step)
                 # pwm.setServoPulse(7, mid_pulse + count_updown*pwm_step)
 
-                # #rear-right LEG
+                pwm.setServoPulse(6, int(mid_pulse + count_updown*pwm_step))                
+                pwm.setServoPulse(7, int(mid_pulse + count_updown*pwm_step - (abs(count_updown)*5 + 30)))
+
+                # # #rear-right LEG
+                pwm.setServoPulse(2, int(mid_pulse - count_updown*pwm_step - (abs(count_updown)*5 - 30)))                
+                pwm.setServoPulse(3, int(mid_pulse - count_updown*pwm_step))
+
                 # pwm.setServoPulse(2, mid_pulse - count_updown*pwm_step)
                 # pwm.setServoPulse(3, mid_pulse + count_updown*pwm_step) 
 
@@ -101,7 +108,7 @@ def keycontrol(argv):
             curses.endwin()
 
             #save last values to PCA9685 register
-            # pwm.exit()
+            pwm.exit()
 
         finally:
         # print('maximum playing reached : %d  ' %(count))
