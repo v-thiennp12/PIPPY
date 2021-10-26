@@ -39,7 +39,7 @@ def keycontrol(argv):
         curses.cbreak()
         key_get.keypad(True)
         
-        pwm_step        = 20
+        pwm_step        = 10
         count_updown    = 0
 
         try:

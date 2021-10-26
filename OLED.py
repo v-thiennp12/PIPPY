@@ -99,26 +99,29 @@ if __name__ == '__main__':
 	screen.start()
 	screen.screen_show(1, 'IP:192.168.12.1')
 
-	#ina 219
+	#ina 219 for battery voltage
 	SHUNT_OHMS 			= 0.1
 	MAX_EXPECTED_AMPS 	= 0.2
 	ina 				= INA219(SHUNT_OHMS, MAX_EXPECTED_AMPS, log_level=logging.INFO, address=0x42)
 	ina.configure(ina.RANGE_16V, ina.GAIN_AUTO)
-	#ina 219
-	  
+	#ina 219	  
 
-	while 1:
-		time.sleep(1)
-		screen.screen_show(1, 'IP:192.168.4.1')
-		volina = 'ina219 _ ' + str(round(ina.voltage(),1)) + ' V'
-		#print(volina)
-		screen.screen_show(2, volina)
-		#screen.screen_show(2, 'VOLTAGE:8.4v')
+	while True:
+		time.sleep(5)
+		# screen.screen_show(1, 'IP:192.168.1.99')
+		screen.screen_show(1, ' ')
 
-		#temperature = str(int(subprocess.check_output("echo $(</sys/class/thermal/thermal_zone0/temp)", stdout=subprocess.PIPE, shell=True))/1000) + ' C'
-		# temperature = str(subprocess.check_output("cpu=$(</sys/class/thermal/thermal_zone0/temp) && echo $((cpu/1000))")) + ' C'
-		# temperature = str(os.system("cpu=$(</sys/class/thermal/thermal_zone0/temp) && echo $((cpu/1000))")) + ' C'
+		voltage = 'battery     ' + str(round(ina.voltage(),1)) + ' V'
+		screen.screen_show(2, voltage)		
 
-		# temperature = str(subprocess.run("echo $(</sys/class/thermal/thermal_zone0/temp)", capture_output=True).stdout) + ' c'
-		# screen.screen_show(4, temperature)
+		screen.screen_show(3, ' ')
+
+		temperature = subprocess.run(['cat', '/sys/class/thermal/thermal_zone0/temp'], capture_output=True).stdout
+		temperature = 'temperature ' + str(round(int(temperature)/1000, 1)) + ' C'
+		screen.screen_show(4, temperature)
 		pass
+
+#temperature = str(subprocess.run(['echo', '$(</sys/class/thermal/thermal_zone0/temp)'], capture_output=True).stdout) # + ' c'
+#temperature = str(os.system("cpu=$(</sys/class/thermal/thermal_zone0/temp) && echo $((cpu/1000))")) + ' C'
+#temperature = str(int(subprocess.check_output("echo $(</sys/class/thermal/thermal_zone0/temp)", stdout=subprocess.PIPE, shell=True))/1000) + ' C'
+#temperature = str(subprocess.check_output("cpu=$(</sys/class/thermal/thermal_zone0/temp) && echo $((cpu/1000))")) + ' C'
