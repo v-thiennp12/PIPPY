@@ -10,20 +10,22 @@ def keycontrol(argv):
         pwm             = PCA9685.PCA9685(0x60, debug=False)
         pwm.setPWMFreq(50)
 
+        pwm_step        = 20
+
         #init pulse PWM
         #in anti-clockwise order
         min_pulse           = 100 #good 190 #200 #50
         max_pulse           = 450 #good 310 #300 #450
         mid_pulse           = 275 # (max + min)/2
 
-        pulse_0             = mid_pulse
-        pulse_1             = mid_pulse
+        pulse_0             = mid_pulse - 1*(pwm_step) - 1*(pwm_step)
+        pulse_1             = mid_pulse - 1*(pwm_step) - 1*(pwm_step)
         pulse_2             = mid_pulse
         pulse_3             = mid_pulse
         pulse_4             = mid_pulse
         pulse_5             = mid_pulse
-        pulse_6             = mid_pulse
-        pulse_7             = mid_pulse
+        pulse_6             = mid_pulse + 1*(pwm_step) + 1*(pwm_step)
+        pulse_7             = mid_pulse + 1*(pwm_step) + 1*(pwm_step)
         
         #front-left LEG
         pwm.setServoPulse(4, pulse_4)
@@ -49,7 +51,6 @@ def keycontrol(argv):
         # curses.def_prog_mode()
         # curses.def_shell_mode()                
         
-        pwm_step        = 15
         count_updown    = 0
 
         try:
@@ -62,13 +63,13 @@ def keycontrol(argv):
                 else:
                     # cycle 1
                     #front-right LEG up
-                    pulse_0 += -pwm_step
+                    pulse_0 += -2*pwm_step
                     pulse_1 += +pwm_step
                     pwm.setServoPulse(0, int(pulse_0))
                     pwm.setServoPulse(1, int(pulse_1))
                     #rear-left LEG up
-                    pulse_6 += -pwm_step
-                    pulse_7 += +pwm_step              
+                    pulse_6 += -2*pwm_step
+                    pulse_7 += +1*pwm_step              
                     pwm.setServoPulse(6, int(pulse_6))
                     pwm.setServoPulse(7, int(pulse_7))
                     
