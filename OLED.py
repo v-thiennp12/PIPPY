@@ -97,7 +97,7 @@ class OLED_ctrl(threading.Thread):
 if __name__ == '__main__':
 	screen = OLED_ctrl()
 	screen.start()
-	screen.screen_show(1, 'IP:192.168.12.1')
+	screen.screen_show(1, 'IP:192.168.1.99')
 
 	#ina 219 for battery voltage
 	SHUNT_OHMS 			= 0.1

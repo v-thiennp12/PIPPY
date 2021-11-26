@@ -10,7 +10,7 @@ def keycontrol(argv):
         pwm             = PCA9685.PCA9685(0x60, debug=False)
         pwm.setPWMFreq(50)
 
-        pwm_step        = 20
+        pwm_step        = 10
 
         #init pulse PWM
         #in anti-clockwise order
@@ -18,14 +18,16 @@ def keycontrol(argv):
         max_pulse           = 450 #good 310 #300 #450
         mid_pulse           = 275 # (max + min)/2
 
-        pulse_0             = mid_pulse - 1*(pwm_step)
-        pulse_1             = mid_pulse - 1*(pwm_step)
+        pulse_0             = mid_pulse - 2*(pwm_step)
+        pulse_1             = mid_pulse - 2*(pwm_step)
+
         pulse_2             = mid_pulse
         pulse_3             = mid_pulse
         pulse_4             = mid_pulse
         pulse_5             = mid_pulse
-        pulse_6             = mid_pulse + 1*(pwm_step)
-        pulse_7             = mid_pulse + 1*(pwm_step)
+        
+        pulse_6             = mid_pulse + 2*(pwm_step)
+        pulse_7             = mid_pulse + 2*(pwm_step)
         
         #front-left LEG
         pwm.setServoPulse(4, pulse_4)
@@ -62,85 +64,124 @@ def keycontrol(argv):
                     break
                 else:
                     # cycle 1
-                    #front-right LEG up
-                    pulse_0 += -2*pwm_step
-                    pulse_1 += +pwm_step
+                    #front-right LEG up forward
+                    pulse_0 = mid_pulse - 1*pwm_step
+                    pulse_1 = mid_pulse + 1*pwm_step #mid_pulse + 2*pwm_step
                     pwm.setServoPulse(0, int(pulse_0))
                     pwm.setServoPulse(1, int(pulse_1))
-                    #rear-left LEG up
-                    pulse_6 += -2*pwm_step
-                    pulse_7 += +1*pwm_step              
+                    
+                    # char = key_get.getch()
+
+                    #rear-left LEG up forward
+                    pulse_6 = mid_pulse - 1*pwm_step #mid_pulse - 2*pwm_step
+                    pulse_7 = mid_pulse + 1*pwm_step              
                     pwm.setServoPulse(6, int(pulse_6))
                     pwm.setServoPulse(7, int(pulse_7))
+
+                    time.sleep(0.01)
                     
+                    char = key_get.getch()
+
                     # front-left LEG back
-                    pulse_4 += 1*(pwm_step)
-                    pulse_5 += 1*(pwm_step)
+                    pulse_4 += 2*(pwm_step)
+                    pulse_5 += 2*(pwm_step)
                     pwm.setServoPulse(4, int(pulse_4))                
                     pwm.setServoPulse(5, int(pulse_5))
+
+                    # char = key_get.getch()
+
                     # rear-right LEG back
-                    pulse_2 += -1*(pwm_step)
-                    pulse_3 += -1*(pwm_step)
+                    pulse_2 += -2*(pwm_step)
+                    pulse_3 += -2*(pwm_step)
                     pwm.setServoPulse(2, int(pulse_2))                
                     pwm.setServoPulse(3, int(pulse_3))                
 
-                    time.sleep(0.02)
-                    # -----
-                    
-                    # ---
                     time.sleep(0.04)
+
+                    char = key_get.getch()
+                    # -----
+
                     # ---
-
-                    #front-right LEG down
-                    pwm.setServoPulse(0, mid_pulse + 1*pwm_step)
-                    pwm.setServoPulse(1, mid_pulse - 1*pwm_step)
-                    #rear-left LEG down
-                    pwm.setServoPulse(6, mid_pulse + 1*pwm_step)
-                    pwm.setServoPulse(7, mid_pulse - 1*pwm_step)
-
-                    # time.sleep(0.02)
-
-                    # front-left LEG forward-up
-                    pulse_4 = mid_pulse - 2*pwm_step
-                    pulse_5 = mid_pulse + 1*pwm_step
-                    pwm.setServoPulse(4, int(pulse_4))                
-                    pwm.setServoPulse(5, int(pulse_5))
-                    # rear-right LEG forward-up
-                    pulse_2 = mid_pulse - 1*pwm_step
-                    pulse_3 = mid_pulse + 2*pwm_step
-                    pwm.setServoPulse(2, int(pulse_2))                
-                    pwm.setServoPulse(3, int(pulse_3))
-                    
-                    time.sleep(0.02)
-
-                    # front-left LEG normal
-                    pulse_4 = mid_pulse
-                    pulse_5 = mid_pulse
-                    pwm.setServoPulse(4, int(pulse_4))                
-                    pwm.setServoPulse(5, int(pulse_5))
-                    # rear-right LEG normal
-                    pulse_2 = mid_pulse
-                    pulse_3 = mid_pulse
-                    pwm.setServoPulse(2, int(pulse_2))                
-                    pwm.setServoPulse(3, int(pulse_3))
-
-                    # time.sleep(0.02)
+                    # time.sleep(0.04)
+                    # ---
 
                     #front-right LEG normal
                     pulse_0 = mid_pulse
                     pulse_1 = mid_pulse
                     pwm.setServoPulse(0, pulse_0)
                     pwm.setServoPulse(1, pulse_1)
+                    
+                    # char = key_get.getch()
+                    
                     #rear-left LEG normal
                     pulse_6 = mid_pulse
                     pulse_7 = mid_pulse
                     pwm.setServoPulse(6, pulse_6)
-                    pwm.setServoPulse(7, pulse_7)       
+                    pwm.setServoPulse(7, pulse_7) 
+
+                    time.sleep(0.02)
+                    
+                    char = key_get.getch()
+                    # # ------
+
+                    # #front-right LEG down
+                    # pwm.setServoPulse(0, mid_pulse + 1*pwm_step)
+                    # pwm.setServoPulse(1, mid_pulse - 1*pwm_step)
+                    # #rear-left LEG down
+                    # pwm.setServoPulse(6, mid_pulse + 1*pwm_step)
+                    # pwm.setServoPulse(7, mid_pulse - 1*pwm_step)                    
+
+                    # front-left LEG forward-up
+                    pulse_4 = mid_pulse - 1*pwm_step #mid_pulse - 2*pwm_step
+                    pulse_5 = mid_pulse + 1*pwm_step
+                    pwm.setServoPulse(4, int(pulse_4))                
+                    pwm.setServoPulse(5, int(pulse_5))
+                    
+                    # char = key_get.getch()
+                    # rear-right LEG forward-up
+                    pulse_2 = mid_pulse - 1*pwm_step
+                    pulse_3 = mid_pulse + 1*pwm_step #mid_pulse + 2*pwm_step
+                    pwm.setServoPulse(2, int(pulse_2))                
+                    pwm.setServoPulse(3, int(pulse_3))
+                    
+                    time.sleep(0.01)
+                    char = key_get.getch()
+
+                    #front-right LEG back
+                    pulse_0 = mid_pulse - 2*(pwm_step)
+                    pulse_1 = mid_pulse - 2*(pwm_step)
+                    pwm.setServoPulse(0, pulse_0)
+                    pwm.setServoPulse(1, pulse_1)
+                    
+                    # char = key_get.getch()
+                    
+                    #rear-left LEG back
+                    pulse_6 = mid_pulse + 2*(pwm_step)
+                    pulse_7 = mid_pulse + 2*(pwm_step)
+                    pwm.setServoPulse(6, pulse_6)
+                    pwm.setServoPulse(7, pulse_7)                    
+
+                    time.sleep(0.04)
+                    char = key_get.getch()
+
+                    # front-left LEG normal
+                    pulse_4 = mid_pulse
+                    pulse_5 = mid_pulse
+                    pwm.setServoPulse(4, int(pulse_4))                
+                    pwm.setServoPulse(5, int(pulse_5))
+                    
+                    # char = key_get.getch()
+
+                    # rear-right LEG normal
+                    pulse_2 = mid_pulse
+                    pulse_3 = mid_pulse
+                    pwm.setServoPulse(2, int(pulse_2))                
+                    pwm.setServoPulse(3, int(pulse_3))  
 
                     time.sleep(0.02)
 
                     # --------------------------
-                    time.sleep(0.1)         
+                    time.sleep(0.01)         
 
             # shut down cleanly
             curses.nocbreak()
@@ -155,21 +196,8 @@ def keycontrol(argv):
             pwm.exit()
 
         finally:
-        # print('maximum playing reached : %d  ' %(count))
+            # print('maximum playing reached : %d  ' %(count))
             time.sleep(0.02)
 
 if __name__ == '__main__':
     keycontrol(sys.argv)
-
-
-# if char == curses.KEY_UP:
-#     count_updown += 1
-#     if ((mid_pulse + abs(count_updown*pwm_step)) > max_pulse) \
-#        | ((mid_pulse - abs(count_updown*pwm_step)) < min_pulse) :
-#         count_updown -= 1                    
-
-# elif char == curses.KEY_DOWN:
-#     count_updown -= 1
-#     if ((mid_pulse + abs(count_updown*pwm_step)) > max_pulse) \
-#        | ((mid_pulse - abs(count_updown*pwm_step)) < min_pulse) :
-#         count_updown += 1    
